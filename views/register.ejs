@@ -1,0 +1,16 @@
+<%- include("components/header.ejs") %>
+<h1>Create an Account</h1>
+<p>You'll use this account to interface with all sites on the NC Hack network!<br>Already have an account? <a href="/login">Login here</a></p>
+<form action="/api/user" method="post">
+    <input type="text" name="name" placeholder="Name">
+    <input type="text" name="username" placeholder="Username">
+    <input type="email" name="email" placeholder="Email">
+    <input type="password" name="password" placeholder="Password">
+    <input type="password" name="password_confirm" placeholder="Confirm Password">
+    <label>
+        <input type="checkbox" name="tos_check" value="yes">
+        I have read and accept the <a href="/terms">Terms and Conditions</a>
+    </label>
+    <button type="submit">Register</button>
+</form>
+<%- include("components/footer.ejs") %>
