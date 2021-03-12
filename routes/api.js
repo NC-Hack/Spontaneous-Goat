@@ -35,7 +35,7 @@ router.get("/ping", (req, res) => {
     if (!ui.every(i => i)) return res.redirect("/login?notComplete");
     let u = await User.findOne({ $or: { "global.username": req.body.username, "global.email": req.body.username } });
     if (!u) return res.redirect("/login?invalid");
-    u.validatePassword(req.body.password);
+    if (!u.validatePassword(req.body.password)) return res.redirect("/login?invalidPwd");
     res.cookie('NCH_Auth_Token', authToken);
     res.redirect('/');
 }).use("/user", require("./api/user"));

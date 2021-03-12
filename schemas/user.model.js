@@ -41,4 +41,8 @@ userSchema.methods.validatePassword = function (password) {
     return compareSync(password, this.password);
 };
 
+userSchema.methods.generateAuthToken = function() {
+
+}
+
 module.exports = model("User", userSchema);
