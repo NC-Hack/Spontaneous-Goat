@@ -1,6 +1,5 @@
 const express = require('express'), router = express.Router();
 const User = require("../../schemas/user.model");
-const crypto = require("crypto");
 
 router.post("/", async (req, res) => {
         //Create new user
@@ -13,20 +12,16 @@ router.post("/", async (req, res) => {
         });
         const {wellFormed, validDomain} = await emailValidator.verify(req.body.email);
         if (!wellFormed || !validDomain) return res.redirect("/register?emailErr");
-        const generateAuthToken = () => {
-            return crypto.randomBytes(30).toString('hex');
-        }
-        const authToken = generateAuthToken();
         let u = await new User({
             global: {
                 name: req.body.name,
                 username: req.body.username,
-                email: req.body.email,
-                persist_token: authToken
+                email: req.body.email
             },
         }).save();
         u.global.password = u.generateHash(req.body.password);
         u.save();
+        let authToken = await u.generateAuthToken();
         res.cookie('NCH_Auth_Token', authToken);
         res.redirect('/');
 });

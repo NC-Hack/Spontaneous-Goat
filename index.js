@@ -29,7 +29,7 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(__dirname + "/public"));
 app.use(async (req, res, next) => {
     const authToken = req.cookies["NCH_Auth_Token"];
-    req.user = await User.findOne({ "global.persist_token": authToken });
+    if (authToken) req.user = await User.findOne({ "global.persist_token": authToken });
     next();
 })
 

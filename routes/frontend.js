@@ -8,6 +8,9 @@ router.get("/", (req, res) => {
     .get("/register", (req, res) => {
         res.render("register");
     })
+    .get("/login", (req, res) => {
+        res.render("login");
+    })
     .get("/terms", (req, res) => {
         res.render("terms");
     })

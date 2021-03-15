@@ -24,7 +24,7 @@
 }
 */
 const express = require('express'), router = express.Router();
-const User = require("../../schemas/user.model");
+const User = require("../schemas/user.model");
 
 router.get("/ping", (req, res) => {
     res.send("Hello World!");
@@ -33,9 +33,10 @@ router.get("/ping", (req, res) => {
     if (req.user) return res.sendStatus(403);
     let ui = [req.body.username, req.body.password];
     if (!ui.every(i => i)) return res.redirect("/login?notComplete");
-    let u = await User.findOne({ $or: { "global.username": req.body.username, "global.email": req.body.username } });
+    let u = await User.findOne({ $or: [{ "global.username": req.body.username }, { "global.email": req.body.username }] });
     if (!u) return res.redirect("/login?invalid");
     if (!u.validatePassword(req.body.password)) return res.redirect("/login?invalidPwd");
+    let authToken = await u.generateAuthToken();
     res.cookie('NCH_Auth_Token', authToken);
     res.redirect('/');
 }).use("/user", require("./api/user"));
