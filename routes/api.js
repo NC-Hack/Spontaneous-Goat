@@ -30,15 +30,19 @@ router.get("/ping", (req, res) => {
     res.send("Hello World!");
 }).post("/login", async (req, res) => {
     //Login a user
-    if (req.user) return res.sendStatus(403);
+    if (req.user) return res.redirectWithFlash("/error", { error: "While we like people signing up for NC Hack, there's no need to do it when you're already logged in" })
     let ui = [req.body.username, req.body.password];
-    if (!ui.every(i => i)) return res.redirect("/login?notComplete");
+    if (!ui.every(i => i)) return res.redirectWithFlash("/login", { error: "You must specify a username/email and password" });
     let u = await User.findOne({ $or: [{ "global.username": req.body.username }, { "global.email": req.body.username }] });
-    if (!u) return res.redirect("/login?invalid");
-    if (!u.validatePassword(req.body.password)) return res.redirect("/login?invalidPwd");
-    let authToken = await u.generateAuthToken();
-    res.cookie('NCH_Auth_Token', authToken);
+    if (!u || !u.validatePassword(req.body.password)) return res.redirectWithFlash("/login", { error: "Invalid login details, please try again" });
+    let { global: { persist_token } } = await u.generateAuthToken();
+    res.cookie('NCH_Auth_Token', persist_token);
     res.redirect('/');
+}).get("/logout", async (req, res) => {
+    if (!req.user) return res.redirectWithFlash("/error", { error: "You can't turn off a light that's already off... the same thing goes for logging out when you're not even logged in" });
+    if (req.session) req.session.destroy();
+    res.clearCookie("NCH_Auth_Token");
+    res.redirect("/");
 }).use("/user", require("./api/user"));
 
 module.exports = router;

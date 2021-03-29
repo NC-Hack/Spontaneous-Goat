@@ -23,15 +23,26 @@ connection.on("error", (err) => {
 
 // Express setup
 app.use((require("body-parser")).urlencoded({ extended: true }));
-app.use(require("cookie-parser")());
+app.use(require("cookie-parser")("yum"));
+app.use(require("express-session")({ secret: "yum", resave: false, saveUninitialized: false }));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(__dirname + "/public"));
+app.use((require("connect-flash"))())
 app.use(async (req, res, next) => {
     const authToken = req.cookies["NCH_Auth_Token"];
     if (authToken) req.user = await User.findOne({ "global.persist_token": authToken });
     next();
-})
+});
+app.use(function (req, res, next) {
+    res.redirectWithFlash = function (redirect, flash) {
+        Object.keys(flash).forEach(f => {
+            req.flash(f, flash[f]);
+        })
+        res.redirect(redirect);
+    }
+    next();
+});
 
 // Routes
 app.use("/api", require("./routes/api"));

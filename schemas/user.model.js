@@ -44,8 +44,8 @@ userSchema.methods.validatePassword = function (password) {
 
 userSchema.methods.generateAuthToken = async function () {
     this.global.persist_token = crypto.randomBytes(30).toString('hex');
-    await this.save();
-    return this.global.persist_token;
+    this.save();
+    return this;
 }
 
 module.exports = model("User", userSchema);
