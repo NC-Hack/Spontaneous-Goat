@@ -7,6 +7,8 @@ router.post("/", async (req, res) => {
         let ui = [req.body.name, req.body.username, req.body.email, req.body.password, req.body.password_confirm, req.body.tos_check]
         if (!ui.every(i => i)) return res.redirectWithFlash("/register", { error: "You must complete all the fields" });
         if (req.body.password !== req.body.password_confirm) return res.redirectWithFlash("/register", { error: "Both password fields must match" });
+        if (await User.findOne({ "global.username": req.body.username })) return res.redirectWithFlash("/register", { error: "This username has already been taken" });
+        if (await User.findOne({ "global.email": req.body.email })) return res.redirectWithFlash("/register", { error: "This email is already in use, try logging in instead?" });
         const emailValidator = new (require('email-deep-validator'))({
             verifyMailbox: false
         });
