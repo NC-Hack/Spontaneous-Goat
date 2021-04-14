@@ -1,0 +1,11 @@
+<%- include("../components/header.ejs") %>
+<% if (message) { %><p><%= message %></p><% }%>
+<h1>Hackathon Queue</h1>
+<% hackathons.forEach(h => {
+    %><hr>
+<p><strong><%= h.name %></strong> (<%= h.slug %>.nchack.org)<br>Created by <%= h.admin.global.name %><br><%= h.description %></p>
+<form action="/api/hackathons/approve/<%= h._id %>" method="post"><button type="submit">Approve</button></form>
+<form action="/api/hackathons/deny/<%= h._id %>" method="post"><button type="submit">Deny</button></form>
+<%
+}); %>
+<%- include("../components/footer.ejs") %>

@@ -6,7 +6,7 @@ let siteModel = new Schema({
     description: { type: String, required: true },
     admins: [Schema.Types.ObjectId],
     internal: {
-       approved: { type: Boolean, default: false },
+       status: { type: String, default: "review" },
        approval_staff: Schema.Types.ObjectId,
        official: { type: Boolean, default: false }
     },

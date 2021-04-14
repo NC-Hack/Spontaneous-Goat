@@ -1,0 +1,13 @@
+<%- include("../components/header.ejs") %>
+<h1>Hackathons</h1>
+<p><a href="/hackathons/create">Create a hackathon</a></p>
+<% if (message) { %> <p><%= message %></p> <% }
+if (user_hackathons.length) { %><h2>Your Hackathons</h2><% }
+user_hackathons.forEach(h => {
+    %><h3><%= h.name %> <%= h.internal.status %></h3><%
+}) %><h2>Hackathons</h2><%
+hackathons.forEach(h => {
+%><h3><%= h.name %></h3><%
+})%>
+
+<%- include("../components/footer.ejs") %>

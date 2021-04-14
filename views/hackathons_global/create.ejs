@@ -1,12 +1,12 @@
-<%- include("components/header.ejs") %>
+<%- include("../components/header.ejs") %>
 <h1>Create a Hackathon!</h1>
 <p>Create the hackathon of your dreams (or nightmares, we don't judge)</p>
 <% if (error) { %> <p><%= error %></p> <% } %>
-<form action="/api/hackathon/create" method="post">
+<form action="/api/hackathons/create" method="post">
     <input type="text" name="name" placeholder="Hackathon Name">
     <input type="text" name="slug" placeholder="yournamehere">
     <p>.nchack.org</p>
     <input type="text" name="description" placeholder="Description">
     <button type="submit">Submit for Review</button>
 </form>
-<%- include("components/footer.ejs") %>
+<%- include("../components/footer.ejs") %>
