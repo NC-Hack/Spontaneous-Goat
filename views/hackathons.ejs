@@ -1,0 +1,10 @@
+<%- include("components/header.ejs") %>
+<h1>Hackathons</h1>
+<p><a href="/hackathons/create">Create a hackathon</a></p>
+<% if (message) { %> <p><%= message %></p> <% }
+if (hackathons.length) %><h2>Your hackathons</h2><%
+hackathons.forEach(h => {
+    %><h3><%= h.name %> <%= h.internal.approved ? "Approved" : "Awaiting Review" %></h3><%
+})%>
+
+<%- include("components/footer.ejs") %>

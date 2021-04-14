@@ -43,6 +43,7 @@ router.get("/ping", (req, res) => {
     if (req.session) req.session.destroy();
     res.clearCookie("NCH_Auth_Token");
     res.redirect("/");
-}).use("/user", require("./api/user"));
+}).use("/user", require("./api/user"))
+    .use("/hackathon", require("./api/hackathon"));
 
 module.exports = router;

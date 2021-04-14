@@ -18,7 +18,8 @@ router.post("/", async (req, res) => {
             global: {
                 name: req.body.name,
                 username: req.body.username,
-                email: req.body.email
+                email: req.body.email,
+                created: new Date()
             },
         }).save();
         u.global.password = u.generateHash(req.body.password);

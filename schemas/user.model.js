@@ -21,7 +21,8 @@ let userSchema = new Schema({
             support: { type: Boolean, default: false },
             verified: { type: Boolean, default: false },
             emailValidated: { type: Boolean, default: false }
-        }
+        },
+        created: Date
     }
 });
 
