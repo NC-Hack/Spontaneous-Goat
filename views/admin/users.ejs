@@ -1,0 +1,42 @@
+<%- include("../components/header.ejs") %>
+<h1>User List</h1>
+<h3>There are <%= users.length %> users</h3>
+
+<table id="myTable">
+    <tr class="header">
+        <th style="width:60%;">Name</th>
+        <th style="width:40%;">Email</th>
+    </tr>
+    <tr id="inputRow">
+        <td><input type="text" id="searchName" onkeyup="check('searchName', 0)" placeholder="Filter names.."></td>
+        <td><input type="text" id="searchEmail" onkeyup="check('searchEmail', 1)" placeholder="Filter emails.."></td>
+    </tr>
+    <% users.forEach(u => {
+        %><tr>
+        <td><%= u.global.name %> (@<%= u.global.username %>)</td>
+        <td><%= u.global.email %></td>
+    </tr><%
+    })%>
+</table>
+
+<script>
+    function check(id, num) {
+        let input = document.getElementById(id);
+        let filter = input.value.toUpperCase();
+        let table = document.getElementById("myTable");
+        let tr = table.getElementsByTagName("tr");
+
+        for (let row of tr) {
+            if (row.id === "inputRow") continue;
+            let td = row.getElementsByTagName("td")[num];
+            if (td) {
+                if ((td.textContent || td.innerText).toUpperCase().includes(filter)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+<%- include("../components/footer.ejs") %>

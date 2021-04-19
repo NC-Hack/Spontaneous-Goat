@@ -13,6 +13,10 @@ router.get("/", checkAdmin, async (req, res) => {
         h.admin = await User.findOne({ _id: h.admins[0] });
     }
     res.render("admin/review", { hackathons, message: req.flash("message") || null });
+}).get("/users", checkAdmin, async (req, res) => {
+    //Users
+    let users = await User.find({});
+    res.render("admin/users", { users });
 });
 
 module.exports = router;
