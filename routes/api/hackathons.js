@@ -1,6 +1,8 @@
 const express = require('express'), router = express.Router();
 const Site = require("../../schemas/site.model");
+const User = require("../../schemas/user.model");
 const { checkAdmin } = require("../../functions/checks");
+const { sendEmail } = require("../../functions/emails");
 
 router.post("/create", async (req, res) => {
     //Create new hackathon
@@ -19,18 +21,22 @@ router.post("/create", async (req, res) => {
 }).post("/approve/:id", checkAdmin, async (req, res) => {
     let s = await Site.findOne({ _id: req.params.id });
     if (!s) return res.redirectWithFlash("error", { error: "Hackathon ID not found" });
-    if (s.internal.status !== "review") return res.redirectWithFlash("error", { error: "Hackathon already reviewed" });
+    if (s.internal.status !== "review") return res.redirectWithFlash("/error", { error: "Hackathon already reviewed" });
     s.internal.status = "approved";
     s.internal.approval_staff = req.user._id;
     s.save();
+    let u = await User.findOne({ _id: s.admins[0] });
+    if (u) await sendEmail([u], "Your hackathon has been approved!", `Hi ${u.global.name},<br><br>We're excited to let you know that your shiny new hackathon <strong>${s.name}</strong> has been approved! You can start setting up your website at <a href="https://${s.slug}.nchack.org">${s.slug}.nchack.org</a>.<br>If you need any help, feel free to hit us up at <a href="mailto:team@nchack.org">team@nchack.org</a>.<br><br>Happy hacking!<br>- NC Hack`);
     res.redirectWithFlash('/admin/review', { message: `Approved ${s.name}` });
 }).post("/deny/:id", checkAdmin, async (req, res) => {
     let s = await Site.findOne({ _id: req.params.id });
     if (!s) return res.redirectWithFlash("error", { error: "Hackathon ID not found" });
-    if (s.internal.status !== "review") return res.redirectWithFlash("error", { error: "Hackathon already reviewed" });
+    if (s.internal.status !== "review") return res.redirectWithFlash("/error", { error: "Hackathon already reviewed" });
     s.internal.status = "denied";
     s.internal.approval_staff = req.user._id;
     s.save();
+    let u = await User.findOne({ _id: s.admins[0] });
+    if (u) await sendEmail([u], "Your hackathon has been denied", `Hi ${u.global.name},<br><br>Unfortunately, your hackathon application for <strong>${s.name}</strong> has been denied. Please feel free to resubmit when your hackathon meets our submission guidelines. If you have any questions about this decision, please email us at <a href="mailto:team@nchack.org">team@nchack.org</a>.<br><br>Happy hacking!<br>- NC Hack`);
     res.redirectWithFlash('/admin/review', { message: `Denied ${s.name}` });
 });
 

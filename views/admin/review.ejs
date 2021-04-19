@@ -1,6 +1,7 @@
 <%- include("../components/header.ejs") %>
 <% if (message) { %><p><%= message %></p><% }%>
 <h1>Hackathon Queue</h1>
+<h3><%= hackathons.length %> enqueued</h3>
 <% hackathons.forEach(h => {
     %><hr>
 <p><strong><%= h.name %></strong> (<%= h.slug %>.nchack.org)<br>Created by <%= h.admin.global.name %><br><%= h.description %></p>
