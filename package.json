@@ -18,6 +18,7 @@
     "email-deep-validator": "^3.3.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
+    "express-subdomain": "^1.0.5",
     "mongoose": "^5.11.15",
     "nodemailer": "^6.5.0",
     "nodemailer-smtp-transport": "^2.7.4",

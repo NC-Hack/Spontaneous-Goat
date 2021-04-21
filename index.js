@@ -1,8 +1,11 @@
+(async function() {
 console.log("NC Hack V2 has started.");
 const User = require("./schemas/user.model");
 const express = require("express");
+const Site = require("./schemas/site.model");
+const subdomain = require('express-subdomain');
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 80;
 const { connect, connection } = require("mongoose");
 const path = require("path");
 require('dotenv').config();
@@ -81,9 +84,17 @@ app.use(function (req, res, next) { //middleware function
     next();
 });
 
+//Subdomains
+    let sites = await Site.find({ "internal.status": "approved" });
+    for (let s of sites) {
+        app.use(subdomain(s.slug, require("./routes/sites")));
+        console.log(`Loaded site ${s.slug}.nchack.org`)
+    }
+
 // Routes
 app.use("/api", require("./routes/api"));
 app.use("/", require("./routes/frontend"));
 
 // Launch server
 app.listen(port, () => console.log(`Server Started on Port ${port}`));
+})()
