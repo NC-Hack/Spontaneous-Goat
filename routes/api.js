@@ -36,7 +36,7 @@ router.get("/ping", (req, res) => {
     let u = await User.findOne({ $or: [{ "global.username": req.body.username }, { "global.email": req.body.username }] });
     if (!u || !u.validatePassword(req.body.password)) return res.redirectWithFlash("/login", { error: "Invalid login details, please try again" });
     let { global: { persist_token } } = await u.generateAuthToken();
-    res.cookie('NCH_Auth_Token', persist_token);
+    res.cookie('NCH_Auth_Token', persist_token, { "domain": process.env.DOMAIN });
     res.redirect('/');
 }).get("/logout", async (req, res) => {
     if (!req.user) return res.redirectWithFlash("/error", { error: "You can't turn off a light that's already off... the same thing goes for logging out when you're not even logged in" });

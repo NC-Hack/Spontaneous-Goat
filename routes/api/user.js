@@ -24,7 +24,7 @@ router.post("/", async (req, res) => {
         }).save();
         u.global.password = u.generateHash(req.body.password);
         u = await u.generateAuthToken();
-        res.cookie('NCH_Auth_Token', u.global.persist_token);
+        res.cookie('NCH_Auth_Token', u.global.persist_token, { "domain": process.env.DOMAIN });
         req.user = u;
         res.redirect('/');
 });

@@ -37,6 +37,11 @@ app.use(async (req, res, next) => {
     if (authToken) req.user = await User.findOne({ "global.persist_token": authToken });
     next();
 });
+    app.use(async (req, res, next) => {
+        if (!req.subdomains[0]) return next();
+        req.site = await Site.findOne({ slug: req.subdomains[0] });
+        next();
+    });
 app.use(function (req, res, next) {
     res.redirectWithFlash = function (redirect, flash) {
         Object.keys(flash).forEach(f => {
@@ -83,6 +88,7 @@ app.use(function (req, res, next) { //middleware function
     });*/
     next();
 });
+
 
 //Subdomains
     let sites = await Site.find({ "internal.status": "approved" });
