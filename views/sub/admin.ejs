@@ -1,3 +1,8 @@
 <%- include("../components/header.ejs") %>
-<h1>You're a subdomain admin</h1>
+<h1>Hackathon Administration</h1>
+<% if (message) { %><p><%= message %></p><% }%>
+<form action="/api/hackathons/<%= site.slug %>/edit" method="post">
+    <input type="text" name="name" placeholder="Hackathon Name" value="<%= site.name %>">
+    <button type="submit">Edit</button>
+</form>
 <%- include("../components/footer.ejs") %>

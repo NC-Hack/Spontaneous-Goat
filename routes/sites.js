@@ -4,11 +4,14 @@ const { checkSubAdmin } = require("../functions/checks");
 
 router.get("/", (req, res) => {
     res.render("sub/siteHome", {
-        user: req.user
+        user: req.user,
+        site: req.site
     });
-}).get("/admin", (req, res) => {
+}).get("/admin", checkSubAdmin, (req, res) => {
     res.render("sub/admin", {
-        user: req.user
+        user: req.user,
+        site: req.site,
+        message: req.flash("message")
     });
 });
 
