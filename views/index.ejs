@@ -1,3 +1,76 @@
 <%- include("components/header.ejs") %>
-<h1>Hello<%= user ? `, ${user.global.name}!` : ". You're not logged in :(" %></h1>
+<section class="header-home glass">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+          <div class="col-12 text-center">
+            <div id="typed-strings">
+                <h1>NC Hack, a place for Developers</h1>
+                <h1>NC Hack, a place for Coders</h1>
+                <h1>NC Hack, a place for Students</h1>
+                <h1>NC Hack, a place for People</h1>
+              </div>
+              <h1><span id="typed"></span></h1>
+              <h5>We build things for People.</h5>
+          </div>
+        </div>
+      </div>
+
+</section>
+
+<section class="about-nchack">
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h1>NC Hack</h1>
+                <p>NC Hack is a platform for hackathons, to share the joy of coding with ambitious young students, without having to pay the enourmous prices of advertising and maintaining a website</p>
+            </div>
+            <div class="col-6">
+                <img src="/images/Picture of Pictures.png" style="float: right;">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="events-index">
+    <div class="container">
+        <h1>Events</h1>
+        <div class="">
+            <!-- @Lucas - whenever you decide to make this functional - this div (class "event") needs to become into a forEach() function which will come from /events, you need to include just the top 4-->
+            <a class="event" href="#">
+                <img src="/images/event-test-img.jpg" width="100%" style="border-radius: 25px 25px 0 0 ;">
+                <div class="event-details-home min-content">
+                    <h4>Event</h4>
+                    <p>This Event is a fun event</p>
+                </div>
+            </a>
+            <!-- End of the Holy Div - delete basically everything under this for events-->
+            <a class="event" href="#">
+                <img src="/images/event-test-img.jpg" width="100%" style="border-radius: 25px 25px 0 0 ;">
+                <div class="event-details-home min-content">
+                    <h4>Event</h4>
+                    <p>This Event is a fun event</p>
+                </div>
+            </a>
+            <a class="event" href="#">
+                <img src="/images/event-test-img.jpg" width="100%" style="border-radius: 25px 25px 0 0 ;">
+                <div class="event-details-home min-content">
+                    <h4>Event</h4>
+                    <p>This Event is a fun event</p>
+                </div>
+            </a>
+            <a class="event" href="#">
+                <img src="/images/event-test-img.jpg" width="100%" style="border-radius: 25px 25px 0 0 ;">
+                <div class="event-details-home min-content">
+                    <h4>Event</h4>
+                    <p>This Event is a fun event</p>
+                </div>
+            </a>
+            <!-- End of Stuff u have to delete-->
+            
+
+    </div>
+
+</section>
+
+
 <%- include("components/footer.ejs") %>
