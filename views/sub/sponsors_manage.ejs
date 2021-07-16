@@ -1,0 +1,19 @@
+<%- include("../components/header.ejs") %>
+<% if (message) { %> <p><%= message %></p> <% } %>
+<h1>Sponsors Modification</h1>
+<h3>Add Sponsor</h3>
+<% if (error) { %> <p><%= error %></p> <% } %>
+<form action="/api/sponsors/create" method="post">
+    <input type="text" name="name" placeholder="Sponsor Name">
+    <textarea name="description" placeholder="Sponsor Description"></textarea>
+    <input type="text" name="location" placeholder="Location">
+    <input type="text" name="contact" placeholder="Contact">
+    <input type="text" name="logo_img" placeholder="Logo Image">
+    <input type="text" name="header_img" placeholder="Header Image">
+    <button type="submit">Add Sponsor</button>
+</form>
+<h3>Current Sponsors</h3>
+<% sponsors.forEach(s => {
+    %><p><%= s.name %><br><%= s.description %><br><%= s.contact %><br><%= s.location %></p><%
+}) %>
+<%- include("../components/footer.ejs") %>

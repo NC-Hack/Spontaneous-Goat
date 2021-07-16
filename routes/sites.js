@@ -13,6 +13,13 @@ router.get("/", (req, res) => {
         site: req.site,
         message: req.flash("message")
     });
+}).use("/sponsors", require("./frontend/sub/sponsors"))
+    .use("/api", require("./api/sub_api"))
+    .get("*", (req, res) => {
+    res.render("sub/siteHome", {
+        user: req.user,
+        site: req.site
+        })
 });
 
 module.exports = router;

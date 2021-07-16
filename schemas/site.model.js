@@ -10,7 +10,15 @@ let siteModel = new Schema({
        approval_staff: Schema.Types.ObjectId,
        official: { type: Boolean, default: false }
     },
-    created: Date
+    created: Date,
+    sponsors: [{
+        name: String,
+        description: String,
+        header_img: String,
+        logo_img: String,
+        location: String,
+        contact: String
+    }]
 });
 
 // Methods

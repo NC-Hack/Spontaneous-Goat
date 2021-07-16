@@ -1,0 +1,7 @@
+<%- include("../components/header.ejs") %>
+<h1>Sponsors</h1>
+<% sponsors.forEach(s => {
+%><p><%= s.name %><br><%= s.description %><br><%= s.contact %><br><%= s.location %></p><hr><%
+})
+/* s.logo_img, s.header_img are the images */ %>
+<%- include("../components/footer.ejs") %>

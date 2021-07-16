@@ -1,7 +1,7 @@
 const express = require('express'), router = express.Router();
 const Site = require("../../schemas/site.model");
 const User = require("../../schemas/user.model");
-const { checkAdmin, checkSubAdmin, checkSubdomain } = require("../../functions/checks");
+const { checkAdmin } = require("../../functions/checks");
 const { sendEmail } = require("../../functions/emails");
 
 router.post("/create", async (req, res) => {
@@ -38,10 +38,6 @@ router.post("/create", async (req, res) => {
     let u = await User.findOne({ _id: s.admins[0] });
     if (u) await sendEmail([u], "Your hackathon has been denied", `Hi ${u.global.name},<br><br>Unfortunately, your hackathon application for <strong>${s.name}</strong> has been denied. Please feel free to resubmit when your hackathon meets our submission guidelines. If you have any questions about this decision, please email us at <a href="mailto:team@nchack.org">team@nchack.org</a>.<br><br>Happy hacking!<br>- NC Hack`);
     res.redirectWithFlash('/admin/review', { message: `Denied ${s.name}` });
-}).post("/:slug/edit", checkSubdomain, checkSubAdmin, (req, res) => {
-    req.site.name = req.body.name;
-    req.site.save();
-    res.redirectWithFlash("/admin", { message: "Your changes have been saved." });
 });
 
 module.exports = router;
