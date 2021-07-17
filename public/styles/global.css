@@ -27,7 +27,6 @@ img {
 }
 
 .events-index {
-    
     background-color: #2363A3;
     color: white;
     padding: 5%;
@@ -36,11 +35,15 @@ img {
 
 .event {
     text-decoration: none;
-    width: 20%;
-    border-radius: 25px;
-    display: inline-block;
-    height: 250px;
-    margin: 1%;
+}
+
+.event-link {
+    color: white;
+    text-decoration: none;
+}
+.event-link:hover {
+    color: black;
+    text-decoration: underline;
 }
 
 .event:hover {
@@ -55,4 +58,48 @@ img {
     color: #000;
     width: 100%;
     height: 35%;
+}
+
+.meet-team {
+    color: black;
+    margin: 5%;
+}
+
+.team-img {
+    width: 14%;
+}
+
+footer {
+    background-color: #211348;
+    color: white;
+    padding: 5%;
+}
+
+.footer-img {
+    width: 150px;
+    margin-bottom: 1%;
+}
+
+.footer-link {
+    text-decoration: none;
+    color: white;
+}
+
+.footer-link:hover {
+    text-decoration: underline;
+
+}
+
+
+
+@media (max-width: 800px) {
+    .event-details-home {
+        background-color: #fff;
+        border-radius: 0px 0px 25px 25px;
+        padding: 5%;
+        color: #000;
+        width: 100%;
+        height: 35%;
+    }
+   
 }
