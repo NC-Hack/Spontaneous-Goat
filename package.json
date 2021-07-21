@@ -4,6 +4,7 @@
   "description": "A cool hackathon hosting thing",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Lucas Moore",
@@ -23,6 +24,8 @@
     "mongoose": "^5.11.15",
     "nodemailer": "^6.5.0",
     "nodemailer-smtp-transport": "^2.7.4",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "typed.js": "^2.0.12",
+    "wc-typed-js": "^1.0.1"
   }
 }

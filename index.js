@@ -8,6 +8,7 @@ const app = express();
 const port = process.env.PORT || 80;
 const { connect, connection } = require("mongoose");
 const path = require("path");
+const Typed = require("typed.js")
 require('dotenv').config();
 
 // Configuration
@@ -15,6 +16,7 @@ connect(process.env.MONGO, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
+
 
 connection.on("open", () => {
     console.log("Connected to MongoDB!");
