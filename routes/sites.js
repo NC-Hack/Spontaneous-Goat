@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
 }).use("/sponsors", require("./frontend/sub/sponsors"))
     .use("/api", require("./api/sub_api"))
     .get("*", (req, res) => {
-    res.render("sub/siteHome", {
+    res.render("basic/404", {
         user: req.user,
         site: req.site
         })

@@ -41,7 +41,11 @@ app.use(async (req, res, next) => {
 });
     app.use(async (req, res, next) => {
         if (!req.subdomains[0]) return next();
-        req.site = await Site.findOne({ slug: req.subdomains[0] });
+        let s = await Site.findOne({ slug: req.subdomains[0] });
+        if (!s) return res.render("basic/genericError", {
+            error: "That subdomain was not found, check your spelling?"
+        });
+        req.site = s;
         next();
     });
 app.use(function (req, res, next) {
@@ -98,6 +102,7 @@ app.use(function (req, res, next) { //middleware function
         app.use(subdomain(s.slug, require("./routes/sites")));
         console.log(`Loaded site ${s.slug}.nchack.org`)
     }
+
 
 // Routes
 app.use("/api", require("./routes/api"));
