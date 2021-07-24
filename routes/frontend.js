@@ -18,7 +18,7 @@ router.get("/", (req, res) => {
     .get("/logout", (req, res) => {
         if (!req.user) return res.redirectWithFlash("/error", { error: "You can't turn off a light that's already off... the same thing goes for logging out when you're not even logged in" });
         if (req.session) req.session.destroy();
-        res.clearCookie("NCH_Auth_Token");
+        res.clearCookie("NCH_Auth_Token", { domain: process.env.DOMAIN });
         res.redirect("/");
     })
     // Hackathon Global Flow
