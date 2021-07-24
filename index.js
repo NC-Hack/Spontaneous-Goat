@@ -19,7 +19,7 @@ connect(process.env.MONGO, {
 
 
 connection.on("open", () => {
-    console.log("Connected to MongoDB!");
+    console.log(`Connected to MongoDB: ${connection.name} (${connection.client.s.url})`);
 });
 
 connection.on("error", (err) => {
