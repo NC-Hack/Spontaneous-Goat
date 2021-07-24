@@ -38,11 +38,6 @@ router.get("/ping", (req, res) => {
     let { global: { persist_token } } = await u.generateAuthToken();
     res.cookie('NCH_Auth_Token', persist_token, { "domain": process.env.DOMAIN });
     res.redirect('/');
-}).get("/logout", async (req, res) => {
-    if (!req.user) return res.redirectWithFlash("/error", { error: "You can't turn off a light that's already off... the same thing goes for logging out when you're not even logged in" });
-    if (req.session) req.session.destroy();
-    res.clearCookie("NCH_Auth_Token");
-    res.redirect("/");
 }).use("/user", require("./api/user"))
     .use("/hackathons", require("./api/hackathons"));
 
