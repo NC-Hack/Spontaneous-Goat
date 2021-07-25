@@ -17,7 +17,7 @@
 		useUnifiedTopology: true
 	});
 	
-	app.use(favicon(__dirname + '/public/images/favicon.ico'));
+	app.use(favicon(`${__dirname}/public/images/favicon.ico`));
 
 
 	connection.on("open", () => {
