@@ -1,0 +1,32 @@
+.section-template {
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+
+hr {
+    min-width: 250px;
+}
+
+.admin-img {
+    float: right;
+    border-radius: 9999px;
+    max-width: 250px;
+}
+
+.verticalLine {
+    margin-left: 10%;
+    border-left: thin solid #000;
+  }
+
+@media screen and (min-width: 1500px) {
+    .admin-img {
+        float: left;
+    }
+  }
+
+
+@media screen and (max-width: 900px) {
+    .verticalLine {
+        display: none !important;
+    }    
+}

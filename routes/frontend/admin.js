@@ -5,7 +5,9 @@ const { checkAdmin } = require("../../functions/checks");
 
 router.get("/", checkAdmin, async (req, res) => {
     //Base admin
-    res.render("admin/admin");
+    res.render("admin/admin", {
+        user: req.user
+    });
 }).get("/review", checkAdmin, async (req, res) => {
     //Review
     let hackathons = await Site.find({ "internal.status": "review" });

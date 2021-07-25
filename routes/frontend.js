@@ -35,6 +35,9 @@ router.get("/", (req, res) => {
     .get("/terms", (req, res) => {
         res.render("basic/terms");
     })
+    .get("/about", (req, res) => {
+        res.render("basic/about");
+    })
     .get("/error", (req, res) => {
         res.render("basic/genericError", { error: req.flash("error") || null })
     }).use("/admin", require("./frontend/admin"))
