@@ -8,6 +8,7 @@ const app = express();
 const port = process.env.PORT || 80;
 const { connect, connection } = require("mongoose");
 const path = require("path");
+const favicon = require('serve-favicon');
 const Typed = require("typed.js")
 require('dotenv').config();
 
@@ -16,6 +17,7 @@ connect(process.env.MONGO, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
 
 
 connection.on("open", () => {
