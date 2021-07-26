@@ -1,5 +1,6 @@
 <%- include("../components/header.ejs") %>
 <h1>This is a global user profile for <%= user ? user.name : "someone who isn't logged in" %></h1>
+<img src="<%= user.avatar || "" %>">
 <% if (message) { %> <p><%= message %></p> <% }
 if (error) { %> <p><%= error %></p> <% }
 if (self) { %>
@@ -10,5 +11,9 @@ if (self) { %>
     <input type="email" name="email" placeholder="Email" value="<%= user.email %>">
     <button type="submit">Edit Profile</button>
 </form>
+<form method="POST" action="/api/user/<%= user.username %>/avatar" enctype="multipart/form-data">
+	<input type="file" name="avatar" />
+	<button type="submit">Edit Profile</button>
+  </form>
 <% } %>
 <%- include("../components/footer.ejs") %>
