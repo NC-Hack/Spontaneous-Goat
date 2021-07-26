@@ -44,7 +44,9 @@ router.get("/", (req, res) => {
 		res.render("global_site/profile", {
 			user: user.body,
 			hackathons,
-			self: req.user._id.toString() === user.body._id.toString()
+			self: req.user._id.toString() === user.body._id.toString(),
+			message: req.flash("message"),
+			error: req.flash("error")
 		});
 	})
 	// General

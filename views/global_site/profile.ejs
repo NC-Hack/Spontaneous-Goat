@@ -1,10 +1,12 @@
 <%- include("../components/header.ejs") %>
 <h1>This is a global user profile for <%= user ? user.name : "someone who isn't logged in" %></h1>
-<% if (self) { %>
+<% if (message) { %> <p><%= message %></p> <% }
+if (error) { %> <p><%= error %></p> <% }
+if (self) { %>
 <form action="/api/user/<%= user.username %>/edit" method="post">
     <input type="text" name="name" placeholder="Name" value="<%= user.name %>">
 	<input type="text" name="username" placeholder="Username" value="<%= user.username %>">
-	<textarea name="Bio" placeholder="Bio"><%= user.bio %></textarea>
+	<textarea name="bio" placeholder="Bio"><%= user.bio %></textarea>
     <input type="email" name="email" placeholder="Email" value="<%= user.email %>">
     <button type="submit">Edit Profile</button>
 </form>
