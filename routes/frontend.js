@@ -38,11 +38,15 @@ router.get("/", (req, res) => {
 	.get("/about", (req, res) => {
 		res.render("basic/about");
 	})
+	.get("/contact", (req, res) => {
+		res.render("basic/contact");
+	})
 	.get("/error", (req, res) => {
 		res.render("basic/genericError", { error: req.flash("error") || null });
 	}).use("/admin", require("./frontend/admin"))
 	.get("*", (req, res) => {
 		res.render("basic/404");
 	});
+
 
 module.exports = router;
