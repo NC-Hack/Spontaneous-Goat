@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "eslint": "^7.31.0",
-    "eslint-plugin-ejs": "0.0.2"
+    "eslint-plugin-ejs": "0.0.2",
+    "nodemon": "^2.0.12"
   }
 }
