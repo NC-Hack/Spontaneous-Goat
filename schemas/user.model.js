@@ -22,7 +22,8 @@ let userSchema = new Schema({
 			verified: { type: Boolean, default: false },
 			emailValidated: { type: Boolean, default: false }
 		},
-		created: Date
+		created: Date,
+		attained_badges: [Schema.Types.ObjectId]
 	}
 });
 

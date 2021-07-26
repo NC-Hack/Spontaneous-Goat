@@ -1,5 +1,6 @@
 const express = require("express"), router = express.Router();
 const User = require("../../schemas/user.model");
+const Site = require("../../schemas/site.model");
 
 router.post("/", async (req, res) => {
 	//Create new user
@@ -27,6 +28,37 @@ router.post("/", async (req, res) => {
 	res.cookie("NCH_Auth_Token", u.global.persist_token, { "domain": process.env.DOMAIN });
 	req.user = u;
 	res.redirect("/");
+}).get("/:user", async (req, res) => {
+	const user = await User.findOne({ "global.username": req.params.user });
+	if (!user) return res.sendStatus(404);
+	res.send({
+		name: user.global.name,
+		username: user.global.username,
+		created: user.global.created,
+		attained_badges: user.global.attained_badges,
+		bio: user.bio,
+		_id: user._id
+	});
+}).post("/:user/edit", async (req, res) => {
+	const user = await User.findOne({ "global.username": req.params.user });
+	if (!user) return res.sendStatus(404);
+	res.send({
+		name: user.global.name,
+		username: user.global.username,
+		created: user.global.created,
+		attained_badges: user.global.attained_badges,
+		bio: user.bio,
+		_id: user._id
+	});
+}).get("/:user/hackathons", async (req, res) => {
+	const user = await User.findOne({ "global.username": req.params.user });
+	if (!user) return res.sendStatus(404);
+	const member_hackathons = await Site.find({ members: user._id });
+	const admin_hackathons = await Site.find({ admins: user._id });
+	const resp = { admin: [], member: [] };
+	member_hackathons.forEach(h => resp.member.push({ name: h.name, url: h.slug, description: h.description, created: h.created, _id: h._id, role: "member" }));
+	admin_hackathons.forEach(h => resp.admin.push({ name: h.name, url: h.slug, description: h.description, created: h.created, _id: h._id, role: "member" }));
+	res.send(resp);
 });
 
 module.exports = router;

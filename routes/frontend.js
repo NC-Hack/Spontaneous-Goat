@@ -1,6 +1,6 @@
 const express = require("express"), router = express.Router();
 const Site = require("../schemas/site.model");
-const User = require("../schemas/user.model");
+const { queryApi } = require("../functions/api");
 
 router.get("/", (req, res) => {
 	res.render("index", {
@@ -34,15 +34,16 @@ router.get("/", (req, res) => {
 	})
 	// Profile
 	.get("/profile", (req, res) => {
-		res.render("global_site/profile", {
-			user: req.user
-		});
+		if (!req.user) return res.render("basic/genericError", { error: "You must be logged in to view your profile" });
+		res.redirect(`/profile/${req.user.global.username}`);
 	})
 	.get("/profile/:name", async (req, res) => {
-		const user = await User.findOne({ "global.username": req.params.name });
-		if (!user) res.redirect("/404");
+		const user = await queryApi(`user/${req.params.name}`);
+		if (!user || user.statusCode === 404 || !user.body) return res.redirect("/404");
+		const hackathons = await queryApi(`user/${req.params.name}/hackathons`);
 		res.render("global_site/profile", {
-			user
+			user: user.body,
+			hackathons
 		});
 	})
 	// General

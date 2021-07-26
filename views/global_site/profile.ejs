@@ -1,3 +1,11 @@
 <%- include("../components/header.ejs") %>
-<h1>This is a global user profile for <%= user ? user.global.name : "someone who isn't logged in" %></h1>
+<h1>This is a global user profile for <%= user ? user.name : "someone who isn't logged in" %></h1>
+<%  %>
+<form action="/api/user//create" method="post">
+    <input type="text" name="name" placeholder="Hackathon Name">
+    <input type="text" name="slug" placeholder="yournamehere">
+    <p>.nchack.org</p>
+    <input type="text" name="description" placeholder="Description">
+    <button type="submit">Submit for Review</button>
+</form>
 <%- include("../components/footer.ejs") %>

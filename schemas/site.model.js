@@ -5,6 +5,7 @@ let siteModel = new Schema({
 	slug: { type: String, required: true },
 	description: { type: String, required: true },
 	admins: [Schema.Types.ObjectId],
+	users: [Schema.Types.ObjectId],
 	internal: {
 		status: { type: String, default: "review" },
 		approval_staff: Schema.Types.ObjectId,
