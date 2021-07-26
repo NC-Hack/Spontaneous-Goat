@@ -38,12 +38,13 @@ router.get("/", (req, res) => {
 		res.redirect(`/profile/${req.user.global.username}`);
 	})
 	.get("/profile/:name", async (req, res) => {
-		const user = await queryApi(`user/${req.params.name}`);
+		const user = await queryApi(`user/${req.params.name}`, req.user);
 		if (!user || user.statusCode === 404 || !user.body) return res.redirect("/404");
-		const hackathons = await queryApi(`user/${req.params.name}/hackathons`);
+		const hackathons = await queryApi(`user/${req.params.name}/hackathons`, req.user);
 		res.render("global_site/profile", {
 			user: user.body,
-			hackathons
+			hackathons,
+			self: req.user._id.toString() === user.body._id.toString()
 		});
 	})
 	// General

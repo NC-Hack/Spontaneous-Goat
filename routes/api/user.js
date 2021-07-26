@@ -31,12 +31,14 @@ router.post("/", async (req, res) => {
 }).get("/:user", async (req, res) => {
 	const user = await User.findOne({ "global.username": req.params.user });
 	if (!user) return res.sendStatus(404);
+	let auth = req.headers.authorization === user.global.persist_token;
 	res.send({
 		name: user.global.name,
 		username: user.global.username,
 		created: user.global.created,
 		attained_badges: user.global.attained_badges,
-		bio: user.bio,
+		bio: user.global.bio,
+		email: auth ? user.global.email : "",
 		_id: user._id
 	});
 }).post("/:user/edit", async (req, res) => {
@@ -56,8 +58,8 @@ router.post("/", async (req, res) => {
 	const member_hackathons = await Site.find({ members: user._id });
 	const admin_hackathons = await Site.find({ admins: user._id });
 	const resp = { admin: [], member: [] };
-	member_hackathons.forEach(h => resp.member.push({ name: h.name, url: h.slug, description: h.description, created: h.created, _id: h._id, role: "member" }));
-	admin_hackathons.forEach(h => resp.admin.push({ name: h.name, url: h.slug, description: h.description, created: h.created, _id: h._id, role: "member" }));
+	member_hackathons.forEach(h => resp.member.push({ name: h.name, url: h.slug, description: h.description, created: h.created, _id: h._id }));
+	admin_hackathons.forEach(h => resp.admin.push({ name: h.name, url: h.slug, description: h.description, created: h.created, _id: h._id }));
 	res.send(resp);
 });
 
