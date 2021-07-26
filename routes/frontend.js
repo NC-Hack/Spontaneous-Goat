@@ -1,5 +1,6 @@
 const express = require("express"), router = express.Router();
 const Site = require("../schemas/site.model");
+const User = require("../schemas/user.model");
 
 router.get("/", (req, res) => {
 	res.render("index", {
@@ -25,11 +26,24 @@ router.get("/", (req, res) => {
 	.get("/hackathons", async (req, res) => {
 		let user_hackathons = req.user ? await Site.find({ admins: req.user._id }) : [];
 		let hackathons = await Site.find({ "internal.status": "approved" });
-		res.render("hackathons_global/hackathons", { message: req.flash("message") || null, user_hackathons, hackathons });
+		res.render("global_site/hackathons", { message: req.flash("message") || null, user_hackathons, hackathons });
 	})
 	.get("/hackathons/create", (req, res) => {
 		if (!req.user) return res.redirectWithFlash("/error", { error: "You must be logged in" });
-		res.render("hackathons_global/create", { error: req.flash("error") || null });
+		res.render("global_site/create", { error: req.flash("error") || null });
+	})
+	// Profile
+	.get("/profile", (req, res) => {
+		res.render("global_site/profile", {
+			user: req.user
+		});
+	})
+	.get("/profile/:name", async (req, res) => {
+		const user = await User.findOne({ "global.username": req.params.name });
+		if (!user) res.redirect("/404");
+		res.render("global_site/profile", {
+			user
+		});
 	})
 	// General
 	.get("/terms", (req, res) => {
