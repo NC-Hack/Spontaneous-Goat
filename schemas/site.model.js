@@ -11,6 +11,8 @@ let siteModel = new Schema({
 		official: { type: Boolean, default: false }
 	},
 	created: Date,
+	f_color: { type: String, default: "#FFFFFF" },
+	b_color: { type: String, default: "#211348" },
 	sponsors: [{
 		name: String,
 		description: String,
