@@ -2,7 +2,7 @@ const express = require("express"), router = express.Router();
 const User = require("../../schemas/user.model");
 const Site = require("../../schemas/site.model");
 const { checkProfileInfo, checkAdmin } = require("../../functions/checks");
-const { uploadImage } = require("../../functions/aws");
+const { uploadImage, deleteFromS3 } = require("../../functions/aws");
 const formidable = require("formidable");
 const crypto = require("crypto");
 const fs = require("fs");
@@ -66,7 +66,7 @@ router.post("/", async (req, res) => {
 			file.name = `${crypto.randomBytes(32).toString("hex")}.${ext}`;
 			file.path = `tmp/${file.name}`;
 		}).on("file", async (name, file) => {
-			if (!["png", "gif", "jpeg", "jpg", "webp"].includes(file.name.slice((file.name.lastIndexOf(".") - 1 >>> 0) + 2))) return res.redirectWithFlash(`/profile/${user.global.username}`, { error: "Your avatar must be an image!" });
+			if (!["png", "gif", "jpeg", "jpg", "webp"].includes(file.name.slice((file.name.lastIndexOf(".") - 1 >>> 0) + 2).toLowerCase())) return res.redirectWithFlash(`/profile/${user.global.username}`, { error: "Your avatar must be an image!" });
 			let uploader = await uploadImage(req.user._id.toString(), file);
 			uploader.on("error", function(err) {
 				console.log("S3 upload error", err.stack);
@@ -76,6 +76,10 @@ router.post("/", async (req, res) => {
 				fs.unlink(file.path, function (err) {
 					if (err) console.log(err);
 				});
+				if (user.global.avatar) {
+					let oldAvatarPath = user.global.avatar.match(/([^/]+\/[^/]+\/[^/]+$)/);
+					if (oldAvatarPath) deleteFromS3(oldAvatarPath[1]);
+				}
 				user.global.avatar = `https://${process.env.AWS_BUCKET}.s3.us-east-1.amazonaws.com/users/${req.user._id}/${file.name}`;
 				await user.save();
 				return res.redirectWithFlash(`/profile/${user.global.username}`, { message: "Avatar edited!" });

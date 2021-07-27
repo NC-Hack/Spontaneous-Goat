@@ -1,5 +1,4 @@
-const { LightsailClient, AllocateStaticIpCommand } = require("@aws-sdk/client-lightsail");
-const s3 = require("s3");
+const s3 = require("s3-node");
 const crypto = require("crypto");
 const fs = require("fs");
 
@@ -30,5 +29,16 @@ module.exports = {
 			  },
 			};
 			return client.uploadFile(params);
+	},
+	deleteFromS3: async function (path) {
+		const params = {
+			  Bucket: process.env.AWS_BUCKET,
+			  Delete: {
+				  Objects: [{
+				  Key: path
+			  		}]
+			}
+		  };
+		  return client.deleteObjects(params);
 	}
 }

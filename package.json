@@ -7,13 +7,12 @@
     "start": "node index.js",
     "dev": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint .",
-    "preinstall": "npx npm-force-resolutions"
+    "lint": "eslint ."
   },
   "author": "Lucas Moore",
   "license": "ISC",
   "dependencies": {
-    "@aws-sdk/client-lightsail": "^3.23.0",
+    "@aws-sdk/client-s3": "^3.23.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
@@ -31,7 +30,7 @@
     "nodemailer-smtp-transport": "^2.7.4",
     "path": "^0.12.7",
     "phin": "^3.6.0",
-    "s3": "^4.4.0",
+    "s3-node": "0.0.1",
     "serve-favicon": "^2.5.0",
     "typed.js": "^2.0.12",
     "wc-typed-js": "^1.0.1"
@@ -40,8 +39,5 @@
     "eslint": "^7.31.0",
     "eslint-plugin-ejs": "0.0.2",
     "nodemon": "^2.0.12"
-  },
-  "resolutions": {
-    "graceful-fs": "^4.2.4"
   }
 }
