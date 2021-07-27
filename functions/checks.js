@@ -26,7 +26,7 @@ module.exports = {
 	checkProfileInfo: async function (name, username, bio, email, password, u) {
 		if (name && u.global.name !== name) {
 			if (name.length > 32) return "Names must be 32 characters or less";
-			if (!isAlphaNumeric(name, true)) return "Names must only contain alphanumeric characters";
+			if (!isAlphaNumeric(name.toLowerCase(), true)) return "Names must only contain alphanumeric characters";
 		}
 		if (username && u.global.username !== username) {
 			if (username.length > 32) return "Usernames must be 32 characters or less";
@@ -63,19 +63,18 @@ module.exports = {
 		}
 		return null;
 	},
-	checkHackathonInfo: async function (h, name, slug, desc, f_color, b_color, email, instagram, twitter, discord, github) {
+	checkHackathonInfo: async function (h, name, slug, desc, subtitle, f_color, b_color, email, instagram, twitter, discord, github) {
 		if (name && h.name !== name) {
 			if (name.length > 32) return "Names must be 32 characters or less";
-			if (!isAlphaNumeric(name)) return "Names must only contain alphanumeric characters";
+			if (!isAlphaNumeric(name.toLowerCase(), true)) return "Names must only contain alphanumeric characters";
 		}
 		if (slug) {
 			if (slug.length > 32) return "Slugs must be 32 characters or less";
 			if (!isAlphaNumeric(slug)) return "Slugs must only contain alphanumeric characters";
 			if (await Site.findOne({ slug: slug })) return "This slug has already been taken";
 		}
-		if (desc && h.description !== desc) {
-			if (desc.length > 400) return "Descriptions must be 400 characters or less";
-		}
+		if (desc && h.description !== desc && desc.length > 400) return "Descriptions must be 400 characters or less";
+		if (subtitle && h.subtitle !== subtitle && subtitle.length > 100) return "Subtitles must be 100 characters or less";
 		if (email && h.socials.email !== email) {
 			const emailValidator = new (require("email-deep-validator"))({
 				verifyMailbox: false
@@ -83,16 +82,13 @@ module.exports = {
 			const {wellFormed, validDomain} = await emailValidator.verify(email);
 			if (!wellFormed || !validDomain) return "You specified an invalid email";
 		}
-		if (f_color && h.f_color !== f_color) {
-			//wait
-		}
-		if (b_color && h.b_color !== b_color) {
-			//wait
-		}
-		if (instagram && h.instagram !== instagram && !instagram.match(/(?:^|[^\w])(?:@)([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\.(?!\.))){0,28}(?:[A-Za-z0-9_]))?)/)) return "Invalid Instagram username";
-		if (twitter && h.twitter !== twitter && !instagram.match(/^@?(\w){1,15}$/)) return "Invalid Twitter username";
+		console.log(f_color);
+		if (f_color && h.f_color !== f_color && !f_color.match(/^#?(?:(?:[A-F0-9]{2}){3,4}|[A-F0-9]{3})$/)) return "Invalid foreground color";
+		if (b_color && h.b_color !== b_color && !b_color.match(/^#?(?:(?:[A-F0-9]{2}){3,4}|[A-F0-9]{3})$/)) return "Invalid foreground color";
+		if (instagram && h.instagram !== instagram && !instagram.match(/(?:^|[^\w])(?:@)?([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\.(?!\.))){0,28}(?:[A-Za-z0-9_]))?)/)) return "Invalid Instagram username";
+		if (twitter && h.twitter !== twitter && !twitter.match(/^@?(\w){1,15}$/)) return "Invalid Twitter username";
 		if (discord && h.discord !== discord && !discord.match(/(?:discord.gg|discorda?p?p?\.com\/invite)\/([a-z0-9_-]+)/i)) return "Invalid Discord invite";
-		if (github && h.github !== github && !github.match(/^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i)) return "Invalid GitHub username";
+		if (github && h.github !== github && !github.match(/^@?[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i)) return "Invalid GitHub username";
 		return null;
 	}
 };

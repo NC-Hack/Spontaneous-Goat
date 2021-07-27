@@ -1,17 +1,18 @@
 <%- include("../components/header.ejs") %>
 <h1>Hackathon Administration</h1>
-<% if (message) { %><p><%= message %></p><% }%>
+<% if (message) { %><p><%= message %></p><% }
+if (error) { %><p><%= error %></p><% }%>
 <!-- This is for editing -->
 <form action="/api/edit" method="post">
     <input type="text" name="name" placeholder="Hackathon Name" value="<%= site.name %>">
 	<input type="text" name="subtitle" placeholder="Hackathon Subtitle" value="<%= site.subtitle %>">
-	<textarea name="desc" placeholder="Hackathon Description"><%= site.description %></textarea>
+	<textarea name="description" placeholder="Hackathon Description"><%= site.description %></textarea>
 	<input type="color" name="f_color" placeholder="Foreground Color" value="<%= site.f_color %>">
 	<input type="color" name="b_color" placeholder="Background Color" value="<%= site.b_color %>">
 	<input type="text" name="twitter" placeholder="Twitter Account" value="<%= site.socials.twitter %>">
 	<input type="text" name="instagram" placeholder="Instagram Account" value="<%= site.socials.instagram %>">
-	<input type="text" name="tiktok" placeholder="TikTok Account" value="<%= site.socials.tiktok %>">
 	<input type="text" name="github" placeholder="GitHub Account" value="<%= site.socials.github %>">
+	<input type="text" name="discord" placeholder="Discord Invite" value="<%= site.socials.discord %>">
 	<input type="email" name="email" placeholder="Public Email" value="<%= site.socials.email %>">
 
     <button type="submit">Edit</button>

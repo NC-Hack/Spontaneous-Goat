@@ -15,7 +15,7 @@ let siteModel = new Schema({
 		official: { type: Boolean, default: false }
 	},
 	created: Date,
-	subtitle: String,
+	subtitle: { type: String, default: "A cool hackathon!" },
 	f_color: { type: String, default: "#FFFFFF" },
 	b_color: { type: String, default: "#211348" },
 	sponsors: [{

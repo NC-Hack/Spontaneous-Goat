@@ -9,7 +9,7 @@ router.post("/create", async (req, res) => {
 	if (!req.user) return res.redirectWithFlash("/error", { error: "You must be logged in to create a hackathon" });
 	let hi = [req.body.name, req.body.slug, req.body.description];
 	if (!hi.every(i => i)) return res.redirectWithFlash("/hackathons/create", { error: "You must complete all the fields" });
-	let e = checkHackathonInfo({}, req.body.name, req.body.slug.toLowerCase(), req.body.description);
+	let e = await checkHackathonInfo({}, req.body.name, req.body.slug.toLowerCase(), req.body.description);
 	if (e) return res.redirectWithFlash("/hackathons/create", { error: e });
 	await new Site({
 		name: req.body.name,
