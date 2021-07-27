@@ -14,6 +14,15 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
     <title>NC Hack</title>
     <script>
+      $(function(){
+          $('a').each(function(){
+              if ($(this).prop('href') == window.location.href) {
+                  $(this).addClass('active'); $(this).parents('li').addClass('active');
+              }
+          });
+      });
+  </script>
+    <script>
       $(document).ready(function() {
      var options = {
          stringsElement: '#typed-strings',
@@ -25,18 +34,6 @@
          var typed = new Typed("#typed", options);
      });
      </script>
-     <script>
-      $(function(){
-          $('a').each(function(){
-              if ($(this).prop('href') == window.location.href) {
-                  $(this).addClass('active'); $(this).parents('li').addClass('active');
-              }
-          });
-      });
-  </script>
-    
-    
-    
 </head>
     <header>
         <nav class="navbar navbar-dark navbar-expand-lg">
@@ -57,7 +54,7 @@
                     <a class="nav-link" href="/about">About Us</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="/projects">Projects</a>
+                    <a class="nav-link" href="/hackathons">Hackathons</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="/events">Events</a>

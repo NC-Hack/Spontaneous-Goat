@@ -24,9 +24,9 @@ router.get("/", (req, res) => {
 	})
 	// Hackathon Global Flow
 	.get("/hackathons", async (req, res) => {
-		let user_hackathons = req.user ? await Site.find({ "members._id": req.user._id }) : [];
+		let user_hackathons = req.user ? await Site.find({ admins: req.user._id }) : [];
 		let hackathons = await Site.find({ "internal.status": "approved" });
-		res.render("global_site/hackathons", { message: req.flash("message") || null, user_hackathons, hackathons });
+		res.render("global_site/hackathons", { message: req.flash("message") || null, user_hackathons, hackathons, user:req.user });
 	})
 	.get("/hackathons/create", (req, res) => {
 		if (!req.user) return res.redirectWithFlash("/error", { error: "You must be logged in" });

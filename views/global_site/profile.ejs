@@ -1,5 +1,35 @@
 <%- include("../components/header.ejs") %>
-<h1>This is a global user profile for <%= user ? user.name : "someone who isn't logged in" %></h1>
+<link rel="stylesheet" href="/styles/user.css">
+<section class="header-home glass">
+  <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col">
+              <h1 class="title-font">Welcome <br><%- user.name -%>!</h1>
+              <h5 class="subtitle-font"><%- user.bio -%></h5>
+      </div>
+      <div class="col">
+              <img src="<%= user.avatar || "" %>" class="admin-img">
+      </div>
+    </div>
+</section>
+<section class="section-template">
+  <div class="container">
+      <div class="row">
+          <div class="col-6">
+              <h1 class="subtitle-font" style="font-weight: bold;">Quick Actions</h1>
+              <a href="/admin/review">Hackathon Review</a>
+              <a href="/admin/users">User Info</a>
+          </div>
+          <div class="col-3 verticalLine" style="min-height: 600px;">
+              <h1 class="subtitle-font" style="font-weight: bold;">Badges</h1>
+              <hr>
+            <p>Lucas plz add Badges plz </p>
+              
+          </div>
+      </div>
+  </div>
+</section>
+<h1 style="font-weight: bold;">Projects</h1>
 <img src="<%= user.avatar || "" %>">
 <% if (message) { %> <p><%= message %></p> <% }
 if (error) { %> <p><%= error %></p> <% }

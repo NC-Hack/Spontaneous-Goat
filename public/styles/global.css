@@ -12,6 +12,7 @@ img {
     max-height: 100%;
 }
 
+
 .title-font {
     font-weight: bold;
     font-size: 3em;
@@ -56,6 +57,7 @@ h5 {
 
 .event {
     text-decoration: none;
+    max-width: 250px;
 }
 
 .event-link {

@@ -1,0 +1,22 @@
+.card-link:hover {
+    box-shadow: 0 4px 8px 0 rgba(0,0.5,0.5,0.5);
+}
+
+.hackathon-create {
+    max-width: 800px;
+    margin-top: 10%;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-bottom: 30%;
+}
+
+@media (max-width: 1024px) {
+    .hackathon-create {
+        max-width: 800px;
+        margin-top: 10%;
+        margin-left: 10%;
+        margin-right: 10%;
+        margin-bottom: 30%;
+    }
+    
+}

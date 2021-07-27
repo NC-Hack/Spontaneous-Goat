@@ -1,13 +1,113 @@
 <%- include("../components/header.ejs") %>
-<h1>Hackathons</h1>
-<p><a href="/hackathons/create">Create a hackathon</a></p>
-<% if (message) { %> <p><%= message %></p> <% }
-if (user_hackathons.length) { %><h2>Your Hackathons</h2><% }
-user_hackathons.forEach(h => {
-    %><h3><%= h.name %> <%= h.internal.status %></h3><%
-}) %><h2>Hackathons</h2><%
-hackathons.forEach(h => {
-%><h3><%= h.name %></h3><%
-})%>
+<link rel="stylesheet" href="/styles/hackathons.css">
 
+<section class="header-home glass">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+          <div class="col-12 text-center">
+                <h1 class="title-font">Hackathons</h1>
+                <h5 class="subtitle-font">We build things for People.</h5>
+          </div>
+        </div>
+      </div>
+</section>
+
+<% if (locals.user?.global) { %>
+<section class="about-nchack container" style="margin-bottom: 1%;">
+    <h2>Your Hackathons</h2>
+    <p><a href="/hackathons/create">Create a hackathon</a></p>
+        <div class="row">
+          <a class="col-md-3" href="#" style="text-decoration: none; color: black">
+            <div class="card-link" style="width: 18rem; border-radius: 25px; border: none;">
+              <img class="card-img-top" style="border-radius: 25px 25px 0 0;" src="/images/event-test-img.jpg" alt="Card image cap">
+              <div class="card-body" style="background-color: white; border-radius: 0 0 25px 25px;">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              </div>
+            </div>
+          </a>
+          <a class="col-md-3" href="#" style="text-decoration: none; color: black">
+            <div class="card-link" style="width: 18rem; border-radius: 25px; border: none;">
+              <img class="card-img-top" style="border-radius: 25px 25px 0 0;" src="/images/event-test-img.jpg" alt="Card image cap">
+              <div class="card-body" style="background-color: white; border-radius: 0 0 25px 25px;">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              </div>
+            </div>
+          </a>
+          <a class="col-md-3" href="#" style="text-decoration: none; color: black">
+            <div class="card-link" style="width: 18rem; border-radius: 25px; border: none;">
+              <img class="card-img-top" style="border-radius: 25px 25px 0 0;" src="/images/event-test-img.jpg" alt="Card image cap">
+              <div class="card-body" style="background-color: white; border-radius: 0 0 25px 25px;">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              </div>
+            </div>
+          </a>
+          <a class="col-md-3" href="#" style="text-decoration: none; color: black">
+            <div class="card-link" style="width: 18rem; border-radius: 25px; border: none;">
+              <img class="card-img-top" style="border-radius: 25px 25px 0 0;" src="/images/event-test-img.jpg" alt="Card image cap">
+              <div class="card-body" style="background-color: white; border-radius: 0 0 25px 25px;">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              </div>
+            </div>
+          </a>
+          <a class="col-md-3" href="#" style="text-decoration: none; color: black">
+            <div class="card-link" style="width: 18rem; border-radius: 25px; border: none;">
+              <img class="card-img-top" style="border-radius: 25px 25px 0 0;" src="/images/event-test-img.jpg" alt="Card image cap">
+              <div class="card-body" style="background-color: white; border-radius: 0 0 25px 25px;">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              </div>
+            </div>
+          </a>
+      </div>
+</section>
+<% } %>
+
+<section class="events-index" style="margin-top: 0;">
+  <div class="container">
+    <h2>Hackathons</h2>
+    <h5><a href="/login">Create an Account</a> and start creating communities!</h5>
+    <div class="row">
+      <a class="col-md-3" href="#" style="text-decoration: none; color: black">
+        <div class="card-link" style="width: 18rem; border-radius: 25px; border: none;">
+          <img class="card-img-top" style="border-radius: 25px 25px 0 0;" src="/images/event-test-img.jpg" alt="Card image cap">
+          <div class="card-body" style="background-color: white; border-radius: 0 0 25px 25px;">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </div>
+      </a>
+      <a class="col-md-3" href="#" style="text-decoration: none; color: black">
+        <div class="card-link" style="width: 18rem; border-radius: 25px; border: none;">
+          <img class="card-img-top" style="border-radius: 25px 25px 0 0;" src="/images/event-test-img.jpg" alt="Card image cap">
+          <div class="card-body" style="background-color: white; border-radius: 0 0 25px 25px;">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </div>
+      </a>
+      <a class="col-md-3" href="#" style="text-decoration: none; color: black">
+        <div class="card-link" style="width: 18rem; border-radius: 25px; border: none;">
+          <img class="card-img-top" style="border-radius: 25px 25px 0 0;" src="/images/event-test-img.jpg" alt="Card image cap">
+          <div class="card-body" style="background-color: white; border-radius: 0 0 25px 25px;">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </div>
+      </a>
+      <a class="col-md-3" href="#" style="text-decoration: none; color: black">
+        <div class="card-link" style="width: 18rem; border-radius: 25px; border: none;">
+          <img class="card-img-top" style="border-radius: 25px 25px 0 0;" src="/images/event-test-img.jpg" alt="Card image cap">
+          <div class="card-body" style="background-color: white; border-radius: 0 0 25px 25px;">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
 <%- include("../components/footer.ejs") %>

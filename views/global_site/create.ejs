@@ -1,12 +1,20 @@
 <%- include("../components/header.ejs") %>
-<h1>Create a Hackathon!</h1>
-<p>Create the hackathon of your dreams (or nightmares, we don't judge)</p>
-<% if (error) { %> <p><%= error %></p> <% } %>
-<form action="/api/hackathons/create" method="post">
-    <input type="text" name="name" placeholder="Hackathon Name">
-    <input type="text" name="slug" placeholder="yournamehere">
-    <p>.nchack.org</p>
-    <input type="text" name="description" placeholder="Description">
-    <button type="submit">Submit for Review</button>
-</form>
+<link rel="stylesheet" href="/styles/hackathons.css">
+<section class="container" style="margin-top: 5%;">
+    <h1>Create a Hackathon!</h1>
+    <p>Create the hackathon of your dreams (or nightmares, we don't judge)</p>
+    <% if (error) { %> <p><%= error %></p> <% } %>
+    <form class="hackathon-create" action="/api/hackathons/create" method="POST">
+        <input type="text" name="name" class="form-control m-1" placeholder="Hackathon Name">
+        <div class="input-group m-1">
+            <input type="text" name="slug" class="form-control" placeholder="yournamehere">
+            <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon2">.nchack.org</span>
+            </div>
+        </div>
+        <input type="text" name="description" class="form-control m-1" placeholder="Description">
+        <button type="submit" class="btn btn-primary m-1">Submit for Review</button>
+    </form>
+</section>
+
 <%- include("../components/footer.ejs") %>

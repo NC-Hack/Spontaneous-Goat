@@ -1,23 +1,29 @@
 <%- include("../components/header.ejs") %>
-<h1>User List</h1>
-<h3>There are <%= users.length %> users</h3>
+<link rel="stylesheet" href="/styles/user.css">
 
-<table id="myTable">
-    <tr class="header">
-        <th style="width:60%;">Name</th>
-        <th style="width:40%;">Email</th>
-    </tr>
-    <tr id="inputRow">
-        <td><input type="text" id="searchName" onkeyup="check('searchName', 0)" placeholder="Filter names.."></td>
-        <td><input type="text" id="searchEmail" onkeyup="check('searchEmail', 1)" placeholder="Filter emails.."></td>
-    </tr>
-    <% users.forEach(u => {
-        %><tr>
-        <td><%= u.global.name %> (@<%= u.global.username %>)</td>
-        <td><%= u.global.email %></td>
-    </tr><%
-    })%>
-</table>
+
+<section class="container" style="margin-top: 5%; margin-bottom: 5%; min-height: 600px;">
+    <h1 class="title-font">User List</h1>
+    <h3>There are <%= users.length %> users</h3>
+    
+    <table id="myTable" class="table">
+        <tr class="header">
+            <th style="width:60%;">Name</th>
+            <th style="width:40%;">Email</th>
+        </tr>
+        <tr id="inputRow">
+            <td><input type="text" id="searchName" onkeyup="check('searchName', 0)" placeholder="Filter names.."></td>
+            <td><input type="text" id="searchEmail" onkeyup="check('searchEmail', 1)" placeholder="Filter emails.."></td>
+        </tr>
+        <% users.forEach(u => {
+            %><tr>
+            <td><%= u.global.name %> (@<%= u.global.username %>)</td>
+            <td><%= u.global.email %></td>
+        </tr><%
+        })%>
+    </table>
+</section>
+
 
 <script>
     function check(id, num) {
