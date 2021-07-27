@@ -9,7 +9,7 @@ let userSchema = new Schema({
 		bio: String,
 		email: String,
 		password: String,
-		avatar: String,
+		avatar: { type: String, default: "https://upload.wikimedia.org/wikipedia/commons/b/b2/Hausziege_04.jpg" },
 		connections: {
 			github: {},
 			discord: {}
