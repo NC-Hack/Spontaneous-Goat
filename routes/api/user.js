@@ -67,6 +67,7 @@ router.post("/", async (req, res) => {
 			file.path = `tmp/${file.name}`;
 		}).on("file", async (name, file) => {
 			if (!["png", "gif", "jpeg", "jpg", "webp"].includes(file.name.slice((file.name.lastIndexOf(".") - 1 >>> 0) + 2).toLowerCase())) return res.redirectWithFlash(`/profile/${user.global.username}`, { error: "Your avatar must be an image!" });
+			if (file.size > 1e7) return res.redirectWithFlash(`/profile/${user.global.username}`, { error: "Your avatar must not exceed 10 MB" });
 			let uploader = await uploadImage(req.user._id.toString(), file);
 			uploader.on("error", function(err) {
 				console.log("S3 upload error", err.stack);
