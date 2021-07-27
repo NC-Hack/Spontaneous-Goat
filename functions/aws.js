@@ -1,6 +1,4 @@
 const s3 = require("s3-node");
-const crypto = require("crypto");
-const fs = require("fs");
 
 const client = s3.createClient({
 	maxAsyncS3: 20, // this is the default 
@@ -20,25 +18,25 @@ const client = s3.createClient({
 
 module.exports = {
 	uploadImage: async function(uid, file) {
-			const params = {
-			  localFile: file.path,
-			  s3Params: {
+		const params = {
+			localFile: file.path,
+			s3Params: {
 				Bucket: process.env.AWS_BUCKET,
 				Key: `users/${uid}/${file.name}`, // File path of location on S3
 				ACL: "public-read"
-			  },
-			};
-			return client.uploadFile(params);
+			},
+		};
+		return client.uploadFile(params);
 	},
 	deleteFromS3: async function (path) {
 		const params = {
-			  Bucket: process.env.AWS_BUCKET,
-			  Delete: {
-				  Objects: [{
-				  Key: path
-			  		}]
+			Bucket: process.env.AWS_BUCKET,
+			Delete: {
+				Objects: [{
+					Key: path
+				}]
 			}
-		  };
-		  return client.deleteObjects(params);
+		};
+		return client.deleteObjects(params);
 	}
-}
+};

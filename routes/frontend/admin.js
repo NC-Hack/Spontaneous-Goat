@@ -12,7 +12,7 @@ router.get("/", checkAdmin, async (req, res) => {
 	//Review
 	let hackathons = await Site.find({ "internal.status": "review" });
 	for await (let h of hackathons) {
-		h.admin = await User.findOne({ _id: h.admins[0] });
+		h.admin = await User.findOne({ _id: h.members.find(m => m.founder)._id });
 	}
 	res.render("admin/review", { hackathons, message: req.flash("message") || null });
 }).get("/users", checkAdmin, async (req, res) => {

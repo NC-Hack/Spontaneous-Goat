@@ -5,11 +5,11 @@
     <div class="container h-100">
         <div class="row h-100 align-items-center">
           <div class="col">
-                <h1 class="title-font">Welcome <br><%- user.global.name -%>!</h1>
+                <h1 class="title-font">Welcome <br><%= user.global.name -%>!</h1>
                 <h5 class="subtitle-font">Admin Panel</h5>
         </div>
         <div class="col">
-                <img src="/images/mehdi.png" class="admin-img">
+                <img src="<%= user.global.avatar %>" class="admin-img">
         </div>
       </div>
 </section>
@@ -24,7 +24,7 @@
             <div class="col-3 verticalLine">
                 <h1 class="subtitle-font" style="font-weight: bold;">Information</h1>
                 <hr>
-                <h5><strong>Username:</strong> <%- user.global.username -%></h5>
+                <h5><strong>Username:</strong> <%= user.global.username -%></h5>
                 <h5><strong>Role:</strong> Website Admin</h5>
                 
             </div>

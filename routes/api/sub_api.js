@@ -5,6 +5,8 @@ const isImageURL = require("image-url-validator").default;
 router.get("/ping", (req, res) => {
 	res.send("Hello World!");
 }).post("/edit", checkSubdomain, checkSubAdmin, (req, res) => {
+	//let e = checkHackathonInfo({}, req.body.name, req.body.slug.toLowerCase(), req.body.description);
+	//if (e) return res.redirectWithFlash("/hackathons/create", { error: e });
 	req.site.name = req.body.name;
 	req.site.save();
 	res.redirectWithFlash("/admin", { message: "Your changes have been saved." });

@@ -4,14 +4,18 @@ let siteModel = new Schema({
 	name: { type: String, required: true },
 	slug: { type: String, required: true },
 	description: { type: String, required: true },
-	admins: [Schema.Types.ObjectId],
-	users: [Schema.Types.ObjectId],
+	members: [{
+		_id: Schema.Types.ObjectId,
+		role: String,
+		founder: Boolean
+	}],
 	internal: {
 		status: { type: String, default: "review" },
 		approval_staff: Schema.Types.ObjectId,
 		official: { type: Boolean, default: false }
 	},
 	created: Date,
+	subtitle: String,
 	f_color: { type: String, default: "#FFFFFF" },
 	b_color: { type: String, default: "#211348" },
 	sponsors: [{
@@ -21,7 +25,14 @@ let siteModel = new Schema({
 		logo_img: String,
 		location: String,
 		contact: String
-	}]
+	}],
+	socials: {
+		instagram: String,
+		twitter: String,
+		discord: String,
+		github: String,
+		email: String
+	}
 });
 
 // Methods

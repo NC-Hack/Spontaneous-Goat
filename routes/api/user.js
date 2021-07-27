@@ -88,8 +88,8 @@ router.post("/", async (req, res) => {
 }).get("/:user/hackathons", async (req, res) => {
 	const user = await User.findOne({ "global.username": req.params.user });
 	if (!user) return res.sendStatus(404);
-	const member_hackathons = await Site.find({ members: user._id });
-	const admin_hackathons = await Site.find({ admins: user._id });
+	const member_hackathons = await Site.find({ "members._id": user._id });
+	const admin_hackathons = member_hackathons.filter(h => h.members.find(m => m._id.toString() === user._id.toString()).role === "admin");
 	const resp = { admin: [], member: [] };
 	member_hackathons.forEach(h => resp.member.push({ name: h.name, url: h.slug, description: h.description, created: h.created, _id: h._id }));
 	admin_hackathons.forEach(h => resp.admin.push({ name: h.name, url: h.slug, description: h.description, created: h.created, _id: h._id }));
