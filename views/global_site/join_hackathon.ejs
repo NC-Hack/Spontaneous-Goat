@@ -1,0 +1,11 @@
+<%- include("../components/header.ejs") %>
+
+<% if (error) { %> <p><%= error %></p> <% }
+if (message) { %> <p><%= message %></p> <% } %>
+
+<form action="/api/hackathons/join" method="post">
+    <input type="text" name="slug" placeholder="Hackathon Code">
+    <button type="submit">Join</button>
+</form>
+
+<%- include("../components/footer.ejs") %>

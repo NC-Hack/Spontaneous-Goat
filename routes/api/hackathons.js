@@ -9,6 +9,18 @@ router.get("/", async (req, res) => {
 	let resp = [];
 	hackathons.forEach(h => resp.push({ name: h.name, url: h.slug, description: h.description, created: h.created, _id: h._id }));
 	res.send(resp);
+}).post("/join", async (req, res) => {
+	if (!req.user) return res.redirectWithFlash("/error", { error: "You must be logged in to create a hackathon" });
+	if (!req.body.slug) return res.redirectWithFlash("/hackathons/join", { error: "You must specify a hackathon to join" });
+	let h = await Site.findOne({ slug: req.body.slug.toLowerCase() });
+	if (!h) return res.redirectWithFlash("/hackathons/join", { error: "Invalid hackathon code" });
+	if (h.members.find(m => m._id.toString() === req.user._id.toString())) return res.redirectWithFlash("/hackathons/join", { error: "You are already a member of this hackathon" });
+	h.members.push({
+		_id: req.user._id,
+		role: "member"
+	});
+	await h.save();
+	return res.redirectWithFlash("/hackathons", { message: `You have joined "${h.name}"` });
 }).post("/create", async (req, res) => {
 	//Create new hackathon
 	if (!req.user) return res.redirectWithFlash("/error", { error: "You must be logged in to create a hackathon" });
@@ -48,6 +60,16 @@ router.get("/", async (req, res) => {
 	let u = await User.findOne({ _id: s.members.find(m => m.founder)._id });
 	if (u) await sendEmail([u], "Your hackathon has been denied", `Hi ${u.global.name},<br><br>Unfortunately, your hackathon application for <strong>${s.name}</strong> has been denied. Please feel free to resubmit when your hackathon meets our submission guidelines. If you have any questions about this decision, please email us at <a href="mailto:team@nchack.org">team@nchack.org</a>.<br><br>Happy hacking!<br>- NC Hack`);
 	res.redirectWithFlash("/admin/review", { message: `Denied ${s.name}` });
+}).get("/:slug", async (req, res) => {
+	let h = await Site.findOne({ slug: req.params.slug });
+	if (!h) return res.sendStatus(404);
+	if (h.internal.status !== "approved") {
+		if (req.headers.authorization) {
+			let u = await User.findOne({ "global.persist_token": req.headers.authorization });
+			if (!h.members.find(m => m.role === "admin" && m._id.toString() === u._id.toString() )) return res.sendStatus(403);
+		} else return res.sendStatus(403);
+	}
+	res.send({ name: h.name, url: h.slug, description: h.description, created: h.created, _id: h._id });
 });
 
 module.exports = router;

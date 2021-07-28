@@ -26,7 +26,10 @@ router.get("/", (req, res) => {
 	.get("/hackathons", async (req, res) => {
 		let user_hackathons = req.user ? await Site.find({ admins: req.user._id }) : [];
 		let hackathons = await Site.find({ "internal.status": "approved" });
-		res.render("global_site/hackathons", { message: req.flash("message") || null, user_hackathons, hackathons, user:req.user });
+		res.render("global_site/hackathons", { message: req.flash("message") || null, user_hackathons, hackathons, user: req.user });
+	})
+	.get("/hackathons/join", async (req, res) => {
+		res.render("global_site/join_hackathon", { message: req.flash("message"), error: req.flash("error"), user: req.user });
 	})
 	.get("/hackathons/create", (req, res) => {
 		if (!req.user) return res.redirectWithFlash("/error", { error: "You must be logged in" });
