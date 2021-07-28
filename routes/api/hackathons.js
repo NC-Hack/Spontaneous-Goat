@@ -4,7 +4,12 @@ const User = require("../../schemas/user.model");
 const { checkAdmin, checkHackathonInfo } = require("../../functions/checks");
 const { sendEmail } = require("../../functions/emails");
 
-router.post("/create", async (req, res) => {
+router.get("/", async (req, res) => {
+	let hackathons = await Site.find({ "internal.status": "approved" });
+	let resp = [];
+	hackathons.forEach(h => resp.push({ name: h.name, url: h.slug, description: h.description, created: h.created, _id: h._id }));
+	res.send(resp);
+}).post("/create", async (req, res) => {
 	//Create new hackathon
 	if (!req.user) return res.redirectWithFlash("/error", { error: "You must be logged in to create a hackathon" });
 	let hi = [req.body.name, req.body.slug, req.body.description];
