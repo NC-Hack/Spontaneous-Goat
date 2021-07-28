@@ -8,7 +8,15 @@
               <h5 class="subtitle-font"><%- user.bio -%></h5>
       </div>
       <div class="col">
-              <img src="<%= user.avatar || "" %>" class="admin-img">
+        <div class="ascontainer">
+          <img src="<%= user.avatar || "" %>" class="admin-img hover-img">
+          <div class="overlay">
+            <a type="button" class="text" data-toggle="modal" data-target="#exampleModal">
+              Edit Profile
+            </a>
+          </div>   
+        </div>
+
       </div>
     </div>
 </section>
@@ -16,7 +24,7 @@
   <div class="container">
       <div class="row">
           <div class="col-6">
-              <h1 class="subtitle-font" style="font-weight: bold;">Quick Actions</h1>
+              <h1 class="subtitle-font" style="font-weight: bold;">Projects</h1>
               <a href="/admin/review">Hackathon Review</a>
               <a href="/admin/users">User Info</a>
           </div>
@@ -29,7 +37,7 @@
       </div>
   </div>
 </section>
-<h1 style="font-weight: bold;">Projects</h1>
+
 <img src="<%= user.avatar || "" %>">
 <% if (message) { %> <p><%= message %></p> <% }
 if (error) { %> <p><%= error %></p> <% }

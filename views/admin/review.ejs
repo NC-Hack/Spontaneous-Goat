@@ -1,12 +1,27 @@
 <%- include("../components/header.ejs") %>
-<% if (message) { %><p><%= message %></p><% }%>
-<h1>Hackathon Queue</h1>
-<h3><%= hackathons.length %> enqueued</h3>
-<% hackathons.forEach(h => {
-    %><hr>
-<p><strong><%= h.name %></strong> (<%= h.slug %>.nchack.org)<br>Created by <%= h.admin.global.name %><br><%= h.description %></p>
-<form action="/api/hackathons/approve/<%= h._id %>" method="post"><button type="submit">Approve</button></form>
-<form action="/api/hackathons/deny/<%= h._id %>" method="post"><button type="submit">Deny</button></form>
-<%
-}); %>
+<link rel="stylesheet" href="/styles/user.css">
+
+
+<section>
+    <div class="container" style="margin-top: 5%; margin-bottom: 20%;">
+        <h1 class="title-font">Hackathon Queue</h1>
+        <% if (message) { %><p style="color: red;"><%= message %></p><% }%>
+        <h3 class="subtitle-font"><%= hackathons.length %> hackathons enqueued.</h3>
+        <% hackathons.forEach(h => {
+            %><hr>
+        <p><strong><%= h.name %></strong> (<a href="https://<%= h.slug %>.nchack.org"><%= h.slug %>.nchack.org</a>)<br>Created by <a href="/profile/<%= h.admin.global.username %>"><%= h.admin.global.name %></a><br>Description: <%= h.description %></p>
+        <div class="row">
+            <form action="/api/hackathons/approve/<%= h._id %>" method="post" class="m-1"><button type="submit" class="btn btn-success">Approve</button></form>
+            <form action="/api/hackathons/deny/<%= h._id %>" method="post" class="m-1"><button type="submit" class="btn btn-danger ">Deny</button></form>
+        </div>
+
+        <%
+        }); %>
+    </div>
+    
+</section>
+
+
+
+
 <%- include("../components/footer.ejs") %>

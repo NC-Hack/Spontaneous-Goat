@@ -19,6 +19,37 @@ hr {
     border-left: thin solid #000;
   }
 
+  .overlay {
+    background-color: #008CBA;
+    opacity: 0;
+    transition: .5s ease;
+
+  }
+  
+  .ascontainer:hover .overlay {
+    opacity: 1;
+  }
+  
+  .text {
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+.approve-btn {
+  display: inline-block;
+}
+.deny-btn {
+  display: inline-block;
+}
+
+
 @media screen and (min-width: 1500px) {
     .admin-img {
         float: left;
