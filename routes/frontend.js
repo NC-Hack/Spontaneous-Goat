@@ -23,9 +23,9 @@ router.get("/", (req, res) => {
 	})
 	// Hackathon Global Flow
 	.get("/hackathons", async (req, res) => {
-		let user_hackathons = req.user ?await queryApi(`user/${req.user.username}/hackathons`, req.user) : { body: [] };
+		let user_hackathons = req.user ? await queryApi(`user/${req.user.global.username}/hackathons`, req.user) : null;
 		let hackathons = await queryApi("hackathons", req.user);
-		res.render("global_site/hackathons", { message: req.flash("message") || null, user_hackathons: user_hackathons.body, hackathons: hackathons.body, user: req.user });
+		res.render("global_site/hackathons", { message: req.flash("message") || null, user_hackathons: user_hackathons?.body, hackathons: hackathons.body, user: req.user });
 	})
 	.get("/hackathons/join", async (req, res) => {
 		res.render("global_site/join_hackathon", { message: req.flash("message"), error: req.flash("error"), user: req.user });
