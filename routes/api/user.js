@@ -91,6 +91,12 @@ router.post("/", async (req, res) => {
 	if (!user) return res.sendStatus(404);
 	const member_hackathons = await Site.find({ "members._id": user._id });
 	const admin_hackathons = member_hackathons.filter(h => h.members.find(m => m._id.toString() === user._id.toString()).role === "admin");
+	let auth = req.headers.authorization ? await User.findOne({ "global.persist_token": req.headers.authorization }) : null;
+	admin_hackathons.filter(function (h) {
+		if (h.internal.status === "approved") return true;
+		if (auth && h.members.find(m => m.role === "admin" && m._id.toString() === auth._id.toString() )) return true;
+		else return false;
+	});
 	const resp = { admin: [], member: [] };
 	member_hackathons.forEach(h => resp.member.push({ name: h.name, url: h.slug, description: h.description, created: h.created, _id: h._id }));
 	admin_hackathons.forEach(h => resp.admin.push({ name: h.name, url: h.slug, description: h.description, created: h.created, _id: h._id }));
