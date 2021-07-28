@@ -37,6 +37,14 @@ router.get("/ping", (req, res) => {
 	});
 	req.site.save();
 	res.redirectWithFlash("/sponsors/manage", { message: `Sponsor "${req.body.name}" added!` });
+}).get("/sponsors/:id", checkSubdomain, (req, res) => {
+	if (!req.params.id || !req.site.sponsors.find(s => s._id.toString() === req.params.id)) return res.sendStatus(404);
+	return req.send(req.site.sponsors.find(s => s._id.toString() === req.params.id));
+}).post("/sponsors/:id/delete", checkSubdomain, checkSubAdmin, async (req, res) => {
+	if (!req.params.id || !req.site.sponsors.find(s => s._id.toString() === req.params.id)) return res.redirectWithFlash("error", { error: "Invalid sponsor ID" });
+	req.site.sponsors.splice(req.site.sponsors.findIndex(s => s._id.toString() === req.params.id), 1);
+	req.site.save();
+	res.redirectWithFlash("/sponsors/manage", { message: "Successfully deleted sponsor!" });
 });
 
 module.exports = router;
