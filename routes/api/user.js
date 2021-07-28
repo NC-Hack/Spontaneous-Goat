@@ -92,7 +92,8 @@ router.post("/", async (req, res) => {
 	const member_hackathons = await Site.find({ "members._id": user._id });
 	const admin_hackathons = member_hackathons.filter(h => h.members.find(m => m._id.toString() === user._id.toString()).role === "admin");
 	let auth = req.headers.authorization ? await User.findOne({ "global.persist_token": req.headers.authorization }) : null;
-	admin_hackathons.filter(function (h) {
+	console.log(auth);
+	admin_hackathons.filter(h => {
 		if (h.internal.status === "approved") return true;
 		if (auth && h.members.find(m => m.role === "admin" && m._id.toString() === auth._id.toString() )) return true;
 		else return false;

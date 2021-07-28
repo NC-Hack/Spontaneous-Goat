@@ -23,7 +23,7 @@ router.get("/", (req, res) => {
 	})
 	// Hackathon Global Flow
 	.get("/hackathons", async (req, res) => {
-		let user_hackathons = await queryApi(`user/${req.user.username}/hackathons`, req.user);
+		let user_hackathons = req.user ?await queryApi(`user/${req.user.username}/hackathons`, req.user) : { body: [] };
 		let hackathons = await queryApi("hackathons", req.user);
 		res.render("global_site/hackathons", { message: req.flash("message") || null, user_hackathons: user_hackathons.body, hackathons: hackathons.body, user: req.user });
 	})
