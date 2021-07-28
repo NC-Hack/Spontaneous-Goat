@@ -14,6 +14,7 @@
 </form>
 <h3>Current Sponsors</h3>
 <% sponsors.forEach(s => {
-    %><p><%= s.name %><br><%= s.description %><br><%= s.contact %><br><%= s.location %></p><%
+    %><p><%= s.name %><br><%= s.description %><br><%= s.contact %><br><%= s.location %></p>
+	<form action="/api/sponsors/<%= s._id %>/delete" method="post" class="m-1"><button type="submit" class="btn btn-danger ">Delete</button></form><%
 }) %>
 <%- include("../components/footer.ejs") %>

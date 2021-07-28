@@ -19,6 +19,10 @@ let siteModel = new Schema({
 	f_color: { type: String, default: "#FFFFFF" },
 	b_color: { type: String, default: "#211348" },
 	sponsors: [{
+		_id: {
+			type: Schema.Types.ObjectId,
+			auto: true
+		},
 		name: String,
 		description: String,
 		header_img: String,

@@ -1,5 +1,4 @@
 const express = require("express"), router = express.Router();
-const Site = require("../schemas/site.model");
 const { queryApi } = require("../functions/api");
 
 router.get("/", (req, res) => {
@@ -24,8 +23,8 @@ router.get("/", (req, res) => {
 	})
 	// Hackathon Global Flow
 	.get("/hackathons", async (req, res) => {
-		let user_hackathons = req.user ? await Site.find({ admins: req.user._id }) : [];
-		let hackathons = await Site.find({ "internal.status": "approved" });
+		let user_hackathons = await queryApi(`user/${req.user.username}/hackathons`, req.user);
+		let hackathons = await queryApi("hackathons", req.user);
 		res.render("global_site/hackathons", { message: req.flash("message") || null, user_hackathons, hackathons, user: req.user });
 	})
 	.get("/hackathons/join", async (req, res) => {
