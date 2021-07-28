@@ -7,7 +7,7 @@ const { sendEmail } = require("../../functions/emails");
 router.get("/", async (req, res) => {
 	let hackathons = await Site.find({ "internal.status": "approved" });
 	let resp = [];
-	hackathons.forEach(h => resp.push({ name: h.name, url: h.slug, description: h.description, created: h.created, _id: h._id }));
+	hackathons.forEach(h => resp.push({ name: h.name, url: h.slug, description: h.description, created: h.created, _id: h._id, socials: h.socials, f_color: h.f_color, b_color: h.b_color }));
 	res.send(resp);
 }).post("/join", async (req, res) => {
 	if (!req.user) return res.redirectWithFlash("/error", { error: "You must be logged in to create a hackathon" });
@@ -69,7 +69,7 @@ router.get("/", async (req, res) => {
 			if (!h.members.find(m => m.role === "admin" && m._id.toString() === u._id.toString() )) return res.sendStatus(403);
 		} else return res.sendStatus(403);
 	}
-	res.send({ name: h.name, url: h.slug, description: h.description, created: h.created, _id: h._id });
+	res.send({ name: h.name, url: h.slug, description: h.description, created: h.created, _id: h._id, socials: h.socials, f_color: h.f_color, b_color: h.b_color });
 });
 
 module.exports = router;

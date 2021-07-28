@@ -90,17 +90,12 @@ router.post("/", async (req, res) => {
 	const user = await User.findOne({ "global.username": req.params.user });
 	if (!user) return res.sendStatus(404);
 	const member_hackathons = await Site.find({ "members._id": user._id });
-	const admin_hackathons = member_hackathons.filter(h => h.members.find(m => m._id.toString() === user._id.toString()).role === "admin");
+	let admin_hackathons = member_hackathons.filter(h => h.members.find(m => m._id.toString() === user._id.toString()).role === "admin");
 	let auth = req.headers.authorization ? await User.findOne({ "global.persist_token": req.headers.authorization }) : null;
-	console.log(auth);
-	admin_hackathons.filter(h => {
-		if (h.internal.status === "approved") return true;
-		if (auth && h.members.find(m => m.role === "admin" && m._id.toString() === auth._id.toString() )) return true;
-		else return false;
-	});
+	admin_hackathons = admin_hackathons.filter(h => h.internal.status === "approved" || (auth && h.members.find(m => m.role === "admin" && m._id.toString() === auth._id.toString())));
 	const resp = { admin: [], member: [] };
-	member_hackathons.forEach(h => resp.member.push({ name: h.name, url: h.slug, description: h.description, created: h.created, _id: h._id }));
-	admin_hackathons.forEach(h => resp.admin.push({ name: h.name, url: h.slug, description: h.description, created: h.created, _id: h._id }));
+	member_hackathons.forEach(h => resp.member.push({ name: h.name, url: h.slug, description: h.description, created: h.created, _id: h._id, socials: h.socials, f_color: h.f_color, b_color: h.b_color }));
+	admin_hackathons.forEach(h => resp.admin.push({ name: h.name, url: h.slug, description: h.description, created: h.created, _id: h._id, socials: h.socials, f_color: h.f_color, b_color: h.b_color }));
 	res.send(resp);
 });
 
