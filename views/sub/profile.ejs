@@ -1,0 +1,80 @@
+<%- include("../components/header.ejs") %>
+<p>This is the subdomain profile for <%= user.name %><br>@mehdi I've commented out all this for now</p>
+<!--<link rel="stylesheet" href="/styles/user.css">
+<section class="header-home glass">
+  <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col">
+              <h1 class="title-font">Welcome <br><%- user.name -%>!</h1>
+              <h5 class="subtitle-font"><%- user.bio -%></h5>
+              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Edit Profile
+              </button>
+              
+      </div>
+      <div class="col">
+        <div class="ascontainer">
+          <img src="<%= user.avatar || "" %>" class="admin-img hover-img">
+        </div>
+
+      </div>
+    </div>
+</section>
+<section class="section-template">
+  <div class="container">
+    <% if (message) { %> <p><%= message %></p> <% }
+    if (error) { %> <p><%= error %></p> <% }
+    if (self) { %>
+      <div class="row">
+          <div class="col-6">
+              <h1 class="subtitle-font" style="font-weight: bold;">Projects</h1>
+              <a href="/admin/review">Hackathon Review</a>
+              <a href="/admin/users">User Info</a>
+          </div>
+          <div class="col-3 verticalLine" style="min-height: 600px;">
+              <h1 class="subtitle-font" style="font-weight: bold;">Badges</h1>
+              <hr>
+            <p>Lucas plz add Badges plz </p>
+              
+          </div>
+      </div>
+  </div>
+</section>
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <img class="admin-img m-2" src="<%= user.avatar || "" %>" style="width: 240px">
+              <form method="POST" action="/api/user/<%= user.username %>/avatar" enctype="multipart/form-data">
+                <input type="file" class="btn btn-info m-1" name="avatar" />
+                <button type="submit" class="btn btn-success m-1">Change Profile Picture</button>
+              </form>
+              <hr>
+              <form action="/api/user/<%= user.username %>/edit" method="post">
+                <input type="text" class="form-control m-1" name="name" placeholder="Name" value="<%= user.name %>">
+                <input type="text" class="form-control m-1" name="username" placeholder="Username" value="<%= user.username %>">
+                <textarea name="bio" class="form-control m-1" placeholder="Bio"><%= user.bio %></textarea>
+                <input type="email" class="form-control m-1" name="email" placeholder="Email" value="<%= user.email %>">
+
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Edit Profile</button>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+<% } %>-->
+<%- include("../components/footer.ejs") %>
