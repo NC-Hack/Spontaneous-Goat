@@ -17,18 +17,22 @@
     <h2>Your Hackathons</h2>
     <p><a href="/hackathons/create">Create a hackathon</a></p>
         <div class="row">
-          <% user_hackathons.forEach(uh => { %>
+          <% hackathons.forEach(uh => { %>
           <a class="col-md-3" href="#" style="text-decoration: none; color: black">
             <div class="card-link" style="width: 18rem; border-radius: 25px; border: none;">
               <img class="card-img-top" style="border-radius: 25px 25px 0 0;" src="/images/event-test-img.jpg" alt="Card image cap">
               <div class="card-body" style="background-color: white; border-radius: 0 0 25px 25px;">
+                <% if uh.status == "approved" {%>
+                  <div class="alert alert-success" role="alert">
+                    Approved
+                  </div>
+                <% } %>
                 <h5 class="card-title"><%- uh.name %></h5>
                 <p class="card-text"><%- uh.description %></p>
               </div>
             </div>
           </a>
           <% }); %>
-
       </div>
 </section>
 <% } %>
