@@ -2,4 +2,5 @@
 .env
 node_modules
 tmp/*
-!tmp/.gitkeep 
+!tmp/.gitkeep
+.vscode 
