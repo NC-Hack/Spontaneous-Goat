@@ -7,7 +7,15 @@ router.get("/", (req, res) => {
 		user: req.user,
 		site: req.site
 	});
-}).get("/admin", checkSubAdmin, (req, res) => {
+}).get("/about", (req,res) => {
+	res.render("sub/about", {
+		user: req.user,
+		site: req.site
+	})
+})
+
+
+.get("/admin", checkSubAdmin, (req, res) => {
 	res.render("sub/admin", {
 		user: req.user,
 		site: req.site,

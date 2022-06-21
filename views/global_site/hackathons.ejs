@@ -18,10 +18,10 @@
     <p><a href="/hackathons/create">Create a hackathon</a></p>
         <div class="row">
           <% hackathons.forEach(uh => { %>
-          <a class="col-md-3" href="#" style="text-decoration: none; color: black">
+          <a class="col-md-3" href="#" style="text-decoration: none; color: white">
             <div class="card-link" style="width: 18rem; border-radius: 25px; border: none;">
               <img class="card-img-top" style="border-radius: 25px 25px 0 0;" src="/images/event-test-img.jpg" alt="Card image cap">
-              <div class="card-body" style="background-color: white; border-radius: 0 0 25px 25px;">
+              <div class="card-body" style="background-color: #211348; border-radius: 0 0 25px 25px;">
                 <% if (uh.status === "approved") {%>
                   <div class="alert alert-success" role="alert">
                     Approved
@@ -37,16 +37,16 @@
 </section>
 <% } %>
 
-<section class="events-index" style="margin-top: 0;">
+<section class="about-nchack" style="margin-bottom: 2em;">
   <div class="container">
     <h2>Hackathons</h2>
     <h5><a href="/login">Create an Account</a> and start creating communities!</h5>
     <div class="row">
       <% hackathons.forEach(h => { %>
-      <a class="col-md-3" href="#" style="text-decoration: none; color: black">
+      <a class="col-md-3" href="#" style="text-decoration: none; color: white;">
         <div class="card-link" style="width: 18rem; border-radius: 25px; border: none;">
           <img class="card-img-top" style="border-radius: 25px 25px 0 0;" src="/images/event-test-img.jpg" alt="Card image cap">
-          <div class="card-body" style="background-color: white; border-radius: 0 0 25px 25px;">
+          <div class="card-body" style="background-color: #211348; border-radius: 0 0 25px 25px;">
             <h5 class="card-title"><%- h.name %></h5>
             <p class="card-text"><%- h.description %></p>
           </div>

@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint ."
   },
-  "author": "Lucas Moore",
+  "author": "NC Hack Team",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -36,6 +36,6 @@
   },
   "devDependencies": {
     "eslint": "^7.31.0",
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.15"
   }
 }
